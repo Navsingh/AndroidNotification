@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     static final String KEY_REPLY = "reply";
     int importance = NotificationManager.IMPORTANCE_HIGH;
     NotificationChannel notificationChannel;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         notificationChannel = new NotificationChannel(id, name, importance);
         ButterKnife.bind(this);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @OnClick(R.id.send)
     public void sendNotification() {
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();*/
         // notificationChannel.enableVibration(true);
         // notificationChannel.setVibrationPattern();
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this,id);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, id);
         builder.setSmallIcon(android.R.drawable.ic_dialog_alert);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://lammepind.com/"));
         PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
@@ -65,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
         builder.setContentTitle("Hi it's notification");
         builder.setContentText("Content here");
         builder.setSubText("Click to view all tutorials");
-       // builder.addAction(replyAction);
+        // builder.addAction(replyAction);
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(notificationChannel);
-       // NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();  //expand view
-       //inboxStyle.setBigContentTitle("Notification InboxStyled");
+        // NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();  //expand view
+        //inboxStyle.setBigContentTitle("Notification InboxStyled");
         //int messageCount=3;
-       // builder.setChannelId(id);
+        // builder.setChannelId(id);
        /* Notification notification =
                 new NotificationCompat.Builder(MainActivity.this, id)
                         .setContentTitle("New Messages")
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 //        notificationManager.notify(1, notification);
         Toast.makeText(MainActivity.this, "NOTIFICATION SENT", Toast.LENGTH_LONG).show();
     }
+
     @OnClick(R.id.cancel)
     public void cancelNotification() {
         //String ns = Context.NOTIFICATION_SERVICE;
@@ -96,18 +99,24 @@ public class MainActivity extends AppCompatActivity {
     public void seeNotificationDetails() {
         //getNotificationChannel();
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
-        Uri uri  = notificationManager.getNotificationChannel(id).getSound();
-        Ringtone ringtone = RingtoneManager.getRingtone(this,uri);
+        Uri uri = notificationManager.getNotificationChannel(id).getSound();
+        Ringtone ringtone = RingtoneManager.getRingtone(this, uri);
         String name = ringtone.getTitle(this);
-        Toast.makeText(this, notificationManager.getNotificationChannel(id).getDescription()+ " Name of tone is "+name+ notificationManager.getNotificationChannel(id).getImportance(),Toast.LENGTH_LONG).show();
+        Toast.makeText(this, notificationManager.getNotificationChannel(id).getDescription() + " Name of tone is " + name + notificationManager.getNotificationChannel(id).getImportance(), Toast.LENGTH_LONG).show();
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @OnClick(R.id.changeSettings)
-    public  void ChangeASettings()
-    {
+    public void ChangeASettings() {
         Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-        intent.putExtra(Settings.EXTRA_CHANNEL_ID,notificationChannel.getId());
+        intent.putExtra(Settings.EXTRA_CHANNEL_ID, notificationChannel.getId());
+        intent.putExtra(Settings.EXTRA_CHANNEL_ID, notificationChannel.getId());
         intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+    }
+
+    @OnClick(R.id.floatingLayout)
+    public void floatingLayout() {
+        Intent intent = new Intent(MainActivity.this, Floating.class);
         startActivity(intent);
     }
 }

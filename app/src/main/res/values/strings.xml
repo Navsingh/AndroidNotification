@@ -5,4 +5,8 @@
     <string name="changes">See Updated Settings</string>
     <string name="settings">Change Settings</string>
     <string name="text">Notifications</string>
+    <string name="password">Password</string>
+    <string name="check_floating_label">Floating Label</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
 </resources>
